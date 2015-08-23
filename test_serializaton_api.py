@@ -34,6 +34,7 @@ def user(id):
         response = User.get_resource_or_collection(request.args, id)
     return response
 
+
 @app.route('/users/<id>/relationships/<related_collection_name>/<related_resource>', methods=['GET', 'DELETE'])
 @app.route('/users/<id>/relationships/<related_collection_name>', defaults={'related_resource': None}, methods=['GET', 'DELETE'])
 def user_relationships(id, related_collection_name, related_resource):
