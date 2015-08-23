@@ -214,7 +214,6 @@ class SerializableStructuredNode(StructuredNode):
             # data
             relation_type = eval('self.{related_collection_type}.definition'.format(
                 related_collection_type=related_collection_type)).get('relation_type')
-            print relation_type
 
             results, columns = self.cypher(
                 "START a=node({self}) MATCH a-[:{relation_type}]-(b) RETURN b SKIP {offset} LIMIT {limit}".format(
@@ -361,6 +360,7 @@ class SerializableStructuredNode(StructuredNode):
                                 )
                                 new_resource.save()
                         else:
+                            relation = relations
                             the_type = relation['type']
                             the_id = relation['id']
                             new_resources_relation = cls.nodes.get(id=the_id, active=True)
@@ -383,6 +383,13 @@ class SerializableStructuredNode(StructuredNode):
 
         except UniqueProperty:
             r = application_codes.error_response([application_codes.UNIQUE_KEY_VIOLATION])
+            try:
+                new_resource.delete()
+            except:
+                pass
+
+        except DoesNotExist:
+            r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
             try:
                 new_resource.delete()
             except:
@@ -492,7 +499,6 @@ class SerializableStructuredNode(StructuredNode):
 
     @classmethod
     def get_relationship(cls, request_args, id, related_collection_name, related_resource=None):
-        #print request_args
         try:
             included = request_args.get('included').split(',')
         except:
