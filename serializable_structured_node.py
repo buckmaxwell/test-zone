@@ -242,6 +242,43 @@ class SerializableStructuredNode(StructuredNode):
             r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
         return r
 
+    def set_related_resources_collection_inactive(self, related_collection_type):
+        try:
+            # data
+            relation_type = eval('self.{related_collection_type}.definition'.format(
+                related_collection_type=related_collection_type)).get('relation_type')
+
+            results, columns = self.cypher(
+                "START a=node({self}) MATCH a-[:{relation_type}]-(b) RETURN b".format(
+                    self=self._id, relation_type=relation_type
+                )
+            )
+            related_node_or_nodes = [self.inflate(row[0]) for row in results]
+
+            for n in related_node_or_nodes:
+                n.deactivate()
+
+            r = make_response('')
+            r.status_code = http_error_codes.NO_CONTENT
+            r.headers['Content-Type'] = CONTENT_TYPE
+        except AttributeError:
+            r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+        return r
+
+    def set_individual_related_resource_inactive(self, related_collection_type, related_resource):
+        # data
+        related_node_or_nodes = eval('self.{related_collection_type}.search(id=related_resource)'.format(related_collection_type=related_collection_type), )
+
+        if len(related_node_or_nodes) == 1:
+            the_node = related_node_or_nodes[0]
+            the_node.deactivate()
+            r = make_response('')
+            r.status_code = http_error_codes.NO_CONTENT
+            r.headers['Content-Type'] = CONTENT_TYPE
+        else:
+            r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+        return r
+
     def related_resources_collection_response(self, related_collection_type, included, offset=0, limit=20):
         try:
             response = dict()
@@ -416,6 +453,10 @@ class SerializableStructuredNode(StructuredNode):
             r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
 
         return r
+
+    def deactivate(self):
+        self.active = False
+        self.save()
 
     @classmethod
     def get_resource_or_collection(cls, request_args, id=None):
@@ -600,8 +641,9 @@ class SerializableStructuredNode(StructuredNode):
     def set_resource_inactive(cls, id):
         try:
             this_resource = cls.nodes.get(id=id, active=True)
-            this_resource.active = False
-            this_resource.save()
+            this_resource.deactivate()
+            #this_resource.active = False
+            #this_resource.save()
             r = make_response('')
             r.headers['Content-Type'] = "application/vnd.api+json; charset=utf-8"
             r.status_code = http_error_codes.NO_CONTENT
@@ -658,6 +700,20 @@ class SerializableStructuredNode(StructuredNode):
                 r = this_resource.related_resources_collection_response(related_collection_name, included, offset, limit)
             else:
                 r = this_resource.related_resources_individual_response(related_collection_name, related_resource, included)
+
+        except DoesNotExist:
+            r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+
+        return r
+
+    @classmethod
+    def set_related_resources_inactive(cls, id, related_collection_name, related_resource=None):
+        try:
+            this_resource = cls.nodes.get(id=id, active=True)
+            if not related_resource:
+                r = this_resource.set_related_resources_collection_inactive(related_collection_name)
+            else:
+                r = this_resource.set_individual_related_resource_inactive(related_collection_name, related_resource)
 
         except DoesNotExist:
             r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])

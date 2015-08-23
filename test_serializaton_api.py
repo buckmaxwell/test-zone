@@ -45,18 +45,24 @@ def user_relationships(id, related_collection_name, related_resource):
     return response
 
 
-@app.route('/users/<id>/<related_collection_name>/<related_resource>', methods=['GET'])
-@app.route('/users/<id>/<related_collection_name>', defaults={'related_resource': None}, methods=['GET'])
+@app.route('/users/<id>/<related_collection_name>/<related_resource>', methods=['GET', 'DELETE'])
+@app.route('/users/<id>/<related_collection_name>', defaults={'related_resource': None}, methods=['GET', 'DELETE'])
 def user_related_resources(id, related_collection_name, related_resource):
     response = None
     if request.method == 'GET':
         response = User.get_related_resources(request.args, id, related_collection_name, related_resource)
+    if request.method == 'DELETE':
+        response = User.set_related_resources_inactive(id, related_collection_name, related_resource)
     return response
 
 
 @app.errorhandler(404)
 def not_found(error):
     return application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+
+@app.errorhandler(405)
+def method_not_allowed(error):
+    return application_codes.error_response([application_codes.METHOD_NOT_ALLOWED])
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10200, debug=True)

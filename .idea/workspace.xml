@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dbb233d3-9604-41de-b9cd-ef9123caba36" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application_codes.py" afterPath="$PROJECT_DIR$/application_codes.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/http_error_codes.py" afterPath="$PROJECT_DIR$/http_error_codes.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serializable_structured_node.py" afterPath="$PROJECT_DIR$/serializable_structured_node.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_serializaton_api.py" afterPath="$PROJECT_DIR$/test_serializaton_api.py" />
     </list>
@@ -25,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="serializable_structured_node.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serializable_structured_node.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/serializable_structured_node.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33793104">
-              <caret line="645" column="0" selection-start-line="645" selection-start-column="0" selection-end-line="645" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="718" column="86" selection-start-line="718" selection-start-column="86" selection-end-line="718" selection-end-column="86" />
               <folding>
                 <element signature="e#0#222#0" expanded="true" />
                 <element signature="e#785#870#0" expanded="false" />
@@ -40,27 +42,29 @@
                 <element signature="e#3777#4176#0" expanded="false" />
                 <element signature="e#4221#6598#0" expanded="false" />
                 <element signature="e#6701#11212#0" expanded="false" />
-                <element signature="e#11330#15371#0" expanded="false" />
-                <element signature="e#15490#16869#0" expanded="false" />
-                <element signature="e#16950#17446#0" expanded="false" />
-                <element signature="e#17545#18063#0" expanded="false" />
-                <element signature="e#18177#20129#0" expanded="false" />
-                <element signature="e#20220#21047#0" expanded="false" />
-                <element signature="e#21118#24330#0" expanded="false" />
-                <element signature="e#24405#27652#0" expanded="false" />
-                <element signature="e#27719#28167#0" expanded="false" />
-                <element signature="e#28291#29193#0" expanded="false" />
-                <element signature="e#29306#29760#0" expanded="false" />
+                <element signature="e#11304#12161#0" expanded="false" />
+                <element signature="e#12270#12823#0" expanded="false" />
+                <element signature="e#12941#16982#0" expanded="false" />
+                <element signature="e#17101#18480#0" expanded="false" />
+                <element signature="e#18561#19057#0" expanded="false" />
+                <element signature="e#19156#19674#0" expanded="false" />
+                <element signature="e#19788#21740#0" expanded="false" />
+                <element signature="e#21776#21815#0" expanded="false" />
+                <element signature="e#21906#22733#0" expanded="false" />
+                <element signature="e#22804#26016#0" expanded="false" />
+                <element signature="e#26091#29338#0" expanded="false" />
+                <element signature="e#30018#30920#0" expanded="false" />
+                <element signature="e#31033#31487#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="test_serializaton_api.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="test_serializaton_api.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_serializaton_api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="105" selection-start-line="52" selection-start-column="105" selection-end-line="52" selection-end-column="105" />
+            <state vertical-scroll-proportion="0.46206897">
+              <caret line="47" column="94" selection-start-line="47" selection-start-column="94" selection-end-line="47" selection-end-column="94" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -72,8 +76,10 @@
         <entry file="file://$PROJECT_DIR$/application_codes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="6" column="114" selection-start-line="6" selection-start-column="114" selection-end-line="6" selection-end-column="114" />
-              <folding />
+              <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+              <folding>
+                <element signature="e#0#167#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,7 +88,7 @@
         <entry file="file://$PROJECT_DIR$/http_error_codes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -108,11 +114,11 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/user.py" />
+        <option value="$PROJECT_DIR$/serializable_structured_node.py" />
         <option value="$PROJECT_DIR$/http_error_codes.py" />
         <option value="$PROJECT_DIR$/application_codes.py" />
-        <option value="$PROJECT_DIR$/user.py" />
         <option value="$PROJECT_DIR$/test_serializaton_api.py" />
-        <option value="$PROJECT_DIR$/serializable_structured_node.py" />
       </list>
     </option>
   </component>
@@ -461,17 +467,19 @@
             <element signature="e#3777#4176#0" expanded="false" />
             <element signature="e#4221#6598#0" expanded="false" />
             <element signature="e#6701#11212#0" expanded="false" />
-            <element signature="e#11330#15371#0" expanded="false" />
-            <element signature="e#15490#16869#0" expanded="false" />
-            <element signature="e#16950#17446#0" expanded="false" />
-            <element signature="e#17545#18063#0" expanded="false" />
-            <element signature="e#18177#20129#0" expanded="false" />
-            <element signature="e#20220#21047#0" expanded="false" />
-            <element signature="e#21118#24330#0" expanded="false" />
-            <element signature="e#24405#27652#0" expanded="false" />
-            <element signature="e#27719#28167#0" expanded="false" />
-            <element signature="e#28291#29193#0" expanded="false" />
-            <element signature="e#29306#29760#0" expanded="false" />
+            <element signature="e#11304#12161#0" expanded="false" />
+            <element signature="e#12270#12823#0" expanded="false" />
+            <element signature="e#12941#16982#0" expanded="false" />
+            <element signature="e#17101#18480#0" expanded="false" />
+            <element signature="e#18561#19057#0" expanded="false" />
+            <element signature="e#19156#19674#0" expanded="false" />
+            <element signature="e#19788#21740#0" expanded="false" />
+            <element signature="e#21776#21815#0" expanded="false" />
+            <element signature="e#21906#22733#0" expanded="false" />
+            <element signature="e#22804#26016#0" expanded="false" />
+            <element signature="e#26091#29338#0" expanded="false" />
+            <element signature="e#30018#30920#0" expanded="false" />
+            <element signature="e#31033#31487#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -490,7 +498,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#167#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -526,17 +536,19 @@
             <element signature="e#3777#4176#0" expanded="false" />
             <element signature="e#4221#6598#0" expanded="false" />
             <element signature="e#6701#11212#0" expanded="false" />
-            <element signature="e#11330#15371#0" expanded="false" />
-            <element signature="e#15490#16869#0" expanded="false" />
-            <element signature="e#16950#17446#0" expanded="false" />
-            <element signature="e#17545#18063#0" expanded="false" />
-            <element signature="e#18177#20129#0" expanded="false" />
-            <element signature="e#20220#21047#0" expanded="false" />
-            <element signature="e#21118#24330#0" expanded="false" />
-            <element signature="e#24405#27652#0" expanded="false" />
-            <element signature="e#27719#28167#0" expanded="false" />
-            <element signature="e#28291#29193#0" expanded="false" />
-            <element signature="e#29306#29760#0" expanded="false" />
+            <element signature="e#11304#12161#0" expanded="false" />
+            <element signature="e#12270#12823#0" expanded="false" />
+            <element signature="e#12941#16982#0" expanded="false" />
+            <element signature="e#17101#18480#0" expanded="false" />
+            <element signature="e#18561#19057#0" expanded="false" />
+            <element signature="e#19156#19674#0" expanded="false" />
+            <element signature="e#19788#21740#0" expanded="false" />
+            <element signature="e#21776#21815#0" expanded="false" />
+            <element signature="e#21906#22733#0" expanded="false" />
+            <element signature="e#22804#26016#0" expanded="false" />
+            <element signature="e#26091#29338#0" expanded="false" />
+            <element signature="e#30018#30920#0" expanded="false" />
+            <element signature="e#31033#31487#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -565,17 +577,19 @@
             <element signature="e#3777#4176#0" expanded="false" />
             <element signature="e#4221#6598#0" expanded="false" />
             <element signature="e#6701#11212#0" expanded="false" />
-            <element signature="e#11330#15371#0" expanded="false" />
-            <element signature="e#15490#16869#0" expanded="false" />
-            <element signature="e#16950#17446#0" expanded="false" />
-            <element signature="e#17545#18063#0" expanded="false" />
-            <element signature="e#18177#20129#0" expanded="false" />
-            <element signature="e#20220#21047#0" expanded="false" />
-            <element signature="e#21118#24330#0" expanded="false" />
-            <element signature="e#24405#27652#0" expanded="false" />
-            <element signature="e#27719#28167#0" expanded="false" />
-            <element signature="e#28291#29193#0" expanded="false" />
-            <element signature="e#29306#29760#0" expanded="false" />
+            <element signature="e#11304#12161#0" expanded="false" />
+            <element signature="e#12270#12823#0" expanded="false" />
+            <element signature="e#12941#16982#0" expanded="false" />
+            <element signature="e#17101#18480#0" expanded="false" />
+            <element signature="e#18561#19057#0" expanded="false" />
+            <element signature="e#19156#19674#0" expanded="false" />
+            <element signature="e#19788#21740#0" expanded="false" />
+            <element signature="e#21776#21815#0" expanded="false" />
+            <element signature="e#21906#22733#0" expanded="false" />
+            <element signature="e#22804#26016#0" expanded="false" />
+            <element signature="e#26091#29338#0" expanded="false" />
+            <element signature="e#30018#30920#0" expanded="false" />
+            <element signature="e#31033#31487#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -614,17 +628,19 @@
             <element signature="e#3777#4176#0" expanded="false" />
             <element signature="e#4221#6598#0" expanded="false" />
             <element signature="e#6701#11212#0" expanded="false" />
-            <element signature="e#11330#15371#0" expanded="false" />
-            <element signature="e#15490#16869#0" expanded="false" />
-            <element signature="e#16950#17446#0" expanded="false" />
-            <element signature="e#17545#18063#0" expanded="false" />
-            <element signature="e#18177#20129#0" expanded="false" />
-            <element signature="e#20220#21047#0" expanded="false" />
-            <element signature="e#21118#24330#0" expanded="false" />
-            <element signature="e#24405#27652#0" expanded="false" />
-            <element signature="e#27719#28167#0" expanded="false" />
-            <element signature="e#28291#29193#0" expanded="false" />
-            <element signature="e#29306#29760#0" expanded="false" />
+            <element signature="e#11304#12161#0" expanded="false" />
+            <element signature="e#12270#12823#0" expanded="false" />
+            <element signature="e#12941#16982#0" expanded="false" />
+            <element signature="e#17101#18480#0" expanded="false" />
+            <element signature="e#18561#19057#0" expanded="false" />
+            <element signature="e#19156#19674#0" expanded="false" />
+            <element signature="e#19788#21740#0" expanded="false" />
+            <element signature="e#21776#21815#0" expanded="false" />
+            <element signature="e#21906#22733#0" expanded="false" />
+            <element signature="e#22804#26016#0" expanded="false" />
+            <element signature="e#26091#29338#0" expanded="false" />
+            <element signature="e#30018#30920#0" expanded="false" />
+            <element signature="e#31033#31487#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -663,17 +679,19 @@
             <element signature="e#3777#4176#0" expanded="false" />
             <element signature="e#4221#6598#0" expanded="false" />
             <element signature="e#6701#11212#0" expanded="false" />
-            <element signature="e#11330#15371#0" expanded="false" />
-            <element signature="e#15490#16869#0" expanded="false" />
-            <element signature="e#16950#17446#0" expanded="false" />
-            <element signature="e#17545#18063#0" expanded="false" />
-            <element signature="e#18177#20129#0" expanded="false" />
-            <element signature="e#20220#21047#0" expanded="false" />
-            <element signature="e#21118#24330#0" expanded="false" />
-            <element signature="e#24405#27652#0" expanded="false" />
-            <element signature="e#27719#28167#0" expanded="false" />
-            <element signature="e#28291#29193#0" expanded="false" />
-            <element signature="e#29306#29760#0" expanded="false" />
+            <element signature="e#11304#12161#0" expanded="false" />
+            <element signature="e#12270#12823#0" expanded="false" />
+            <element signature="e#12941#16982#0" expanded="false" />
+            <element signature="e#17101#18480#0" expanded="false" />
+            <element signature="e#18561#19057#0" expanded="false" />
+            <element signature="e#19156#19674#0" expanded="false" />
+            <element signature="e#19788#21740#0" expanded="false" />
+            <element signature="e#21776#21815#0" expanded="false" />
+            <element signature="e#21906#22733#0" expanded="false" />
+            <element signature="e#22804#26016#0" expanded="false" />
+            <element signature="e#26091#29338#0" expanded="false" />
+            <element signature="e#30018#30920#0" expanded="false" />
+            <element signature="e#31033#31487#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -705,18 +723,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application_codes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="114" selection-start-line="6" selection-start-column="114" selection-end-line="6" selection-end-column="114" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/http_error_codes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -731,20 +741,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test_serializaton_api.py">
+    <entry file="file://$PROJECT_DIR$/application_codes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="105" selection-start-line="52" selection-start-column="105" selection-end-line="52" selection-end-column="105" />
+          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#167#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/serializable_structured_node.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33793104">
-          <caret line="645" column="0" selection-start-line="645" selection-start-column="0" selection-end-line="645" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="718" column="86" selection-start-line="718" selection-start-column="86" selection-end-line="718" selection-end-column="86" />
           <folding>
             <element signature="e#0#222#0" expanded="true" />
             <element signature="e#785#870#0" expanded="false" />
@@ -755,17 +765,29 @@
             <element signature="e#3777#4176#0" expanded="false" />
             <element signature="e#4221#6598#0" expanded="false" />
             <element signature="e#6701#11212#0" expanded="false" />
-            <element signature="e#11330#15371#0" expanded="false" />
-            <element signature="e#15490#16869#0" expanded="false" />
-            <element signature="e#16950#17446#0" expanded="false" />
-            <element signature="e#17545#18063#0" expanded="false" />
-            <element signature="e#18177#20129#0" expanded="false" />
-            <element signature="e#20220#21047#0" expanded="false" />
-            <element signature="e#21118#24330#0" expanded="false" />
-            <element signature="e#24405#27652#0" expanded="false" />
-            <element signature="e#27719#28167#0" expanded="false" />
-            <element signature="e#28291#29193#0" expanded="false" />
-            <element signature="e#29306#29760#0" expanded="false" />
+            <element signature="e#11304#12161#0" expanded="false" />
+            <element signature="e#12270#12823#0" expanded="false" />
+            <element signature="e#12941#16982#0" expanded="false" />
+            <element signature="e#17101#18480#0" expanded="false" />
+            <element signature="e#18561#19057#0" expanded="false" />
+            <element signature="e#19156#19674#0" expanded="false" />
+            <element signature="e#19788#21740#0" expanded="false" />
+            <element signature="e#21776#21815#0" expanded="false" />
+            <element signature="e#21906#22733#0" expanded="false" />
+            <element signature="e#22804#26016#0" expanded="false" />
+            <element signature="e#26091#29338#0" expanded="false" />
+            <element signature="e#30018#30920#0" expanded="false" />
+            <element signature="e#31033#31487#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_serializaton_api.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46206897">
+          <caret line="47" column="94" selection-start-line="47" selection-start-column="94" selection-end-line="47" selection-end-column="94" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
           </folding>
         </state>
       </provider>
