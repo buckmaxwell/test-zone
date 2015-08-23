@@ -172,6 +172,92 @@ class SerializableStructuredNode(StructuredNode):
                                                             type=self.type,
                                                             id=self.id,
                                                             related_collection_type=related_collection_type),
+                'first': '{base_url}/{type}/{id}/relationships/{related_collection_type}?page[offset]={offset}&page[limit]={limit}'.format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=0,
+                    limit=limit
+                ),
+                'last': "{base_url}/{type}/{id}/relationships/{related_collection_type}?page[offset]={offset}&page[limit]={limit}".format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=total_length - (total_length % int(limit)),
+                    limit=limit
+                )
+
+            }
+
+            if int(offset) - int(limit) > 0:
+                response['links']['prev'] = "{base_url}/{type}/{id}/relationships/{related_collection_type}?page[offset]={offset}&page[limit]={limit}".format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=int(offset) - int(limit),
+                    limit=limit
+                )
+
+            if total_length > int(offset) + int(limit):
+                response['links']['next'] = "{base_url}/{type}/{id}/relationships/{related_collection_type}?page[offset]={offset}&page[limit]={limit}".format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=int(offset) + int(limit),
+                    limit=limit
+                )
+
+            # data
+            relation_type = eval('self.{related_collection_type}.definition'.format(
+                related_collection_type=related_collection_type)).get('relation_type')
+
+            results, columns = self.cypher(
+                "START a=node({self}) MATCH a-[:{relation_type}]-(b) RETURN b SKIP {offset} LIMIT {limit}".format(
+                    self=self._id, relation_type=relation_type, offset=offset, limit=limit
+                )
+            )
+            related_node_or_nodes = [self.inflate(row[0]) for row in results]
+
+            if not eval("type(self.{related_collection_type})".format(related_collection_type=related_collection_type)) == ZeroOrOne:
+                response['data'] = list()
+                for the_node in related_node_or_nodes:
+                    if the_node.active:
+                        response['data'].append({'type': the_node.type, 'id': the_node.id})
+                        response['included'].append(the_node.get_resource_object())
+            elif related_node_or_nodes:
+                the_node = related_node_or_nodes[0]
+                response['data'] = {'type': the_node.type, 'id': the_node.id}
+                response['included'].append(the_node.get_resource_object())
+            else:
+                response['data'] = None
+
+            r = make_response(jsonify(response))
+            r.status_code = http_error_codes.OK
+            r.headers['Content-Type'] = CONTENT_TYPE
+        except AttributeError:
+            r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+        return r
+
+    def related_resources_collection_response(self, related_collection_type, included, offset=0, limit=20):
+        try:
+            response = dict()
+            response['included'] = list()
+            total_length = eval('len(self.{related_collection_type})'.format(
+                related_collection_type=related_collection_type)
+            )
+            response['links'] = {
+                'self': '{base_url}/{type}/{id}/{related_collection_type}?page[offset]={offset}&page[limit]={limit}'.format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=offset,
+                    limit=limit
+                ),
                 'first': '{base_url}/{type}/{id}/{related_collection_type}?page[offset]={offset}&page[limit]={limit}'.format(
                     base_url=base_url,
                     type=self.type,
@@ -226,21 +312,48 @@ class SerializableStructuredNode(StructuredNode):
                 response['data'] = list()
                 for the_node in related_node_or_nodes:
                     if the_node.active:
-                        response['data'].append({'type': the_node.type, 'id': the_node.id})
-                        response['included'].append(the_node.get_resource_object())
+                        response['data'].append(the_node.get_resource_object())
+                        for n in the_node.get_included_from_list(included):
+                            if n not in response['included']:
+                                response['included'].append(n)
             elif related_node_or_nodes:
                 the_node = related_node_or_nodes[0]
-                response['data'] = {'type': the_node.type, 'id': the_node.id}
-                response['included'].append(the_node.get_resource_object())
+                response['data'].append(the_node.get_resource_object())
             else:
                 response['data'] = None
-
 
             r = make_response(jsonify(response))
             r.status_code = http_error_codes.OK
             r.headers['Content-Type'] = CONTENT_TYPE
         except AttributeError:
             r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+        return r
+
+    def related_resources_individual_response(self, related_collection_type, related_resource, included=[]):
+        response = dict()
+        response['links'] = {
+            'self': '{base_url}/{type}/{id}/{related_collection_type}/{related_resource}'.format(
+                                                                            base_url=base_url,
+                                                                            type=self.type,
+                                                                            id=self.id,
+                                                                            related_collection_type=related_collection_type,
+                                                                            related_resource=related_resource),
+        }
+
+        # data
+        related_node_or_nodes = eval('self.{related_collection_type}.search(id=related_resource)'.format(related_collection_type=related_collection_type), )
+
+        if len(related_node_or_nodes) == 1:
+            the_node = related_node_or_nodes[0]
+            response['data'] = the_node.get_resource_object()
+            response['included'] = the_node.get_included_from_list(included)
+            r = make_response(jsonify(response))
+            r.status_code = http_error_codes.OK
+            r.headers['Content-Type'] = CONTENT_TYPE
+        else:
+            response['data'] = None
+            r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+
         return r
 
     def delete_relationship_collection(self, related_collection_type):
@@ -532,12 +645,23 @@ class SerializableStructuredNode(StructuredNode):
         return r
 
     @classmethod
-    def get_related_resources(cls, id, related_collection_name, related_resource=None):
+    def get_related_resources(cls, request_args, id, related_collection_name, related_resource=None):
+        try:
+            included = request_args.get('included').split(',')
+        except:
+            included = []
         try:
             this_resource = cls.nodes.get(id=id, active=True)
+            if not related_resource:
+                offset = request_args.get('page[offset]', 0)
+                limit = request_args.get('page[limit]', 20)
+                r = this_resource.related_resources_collection_response(related_collection_name, included, offset, limit)
+            else:
+                r = this_resource.related_resources_individual_response(related_collection_name, related_resource, included)
 
         except DoesNotExist:
             r = application_codes.error_response([application_codes.RESOURCE_NOT_FOUND])
+
         return r
 
 

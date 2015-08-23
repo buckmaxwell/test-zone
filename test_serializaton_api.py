@@ -45,12 +45,12 @@ def user_relationships(id, related_collection_name, related_resource):
     return response
 
 
-@app.route('/users/<id>/<related_collection_name>', methods=['GET'])
-def user_related_resources(id, related_collection_name):
+@app.route('/users/<id>/<related_collection_name>/<related_resource>', methods=['GET'])
+@app.route('/users/<id>/<related_collection_name>', defaults={'related_resource': None}, methods=['GET'])
+def user_related_resources(id, related_collection_name, related_resource):
     response = None
     if request.method == 'GET':
-        # response = User.get_relationship(id, related_collection_name)
-        pass
+        response = User.get_related_resources(request.args, id, related_collection_name, related_resource)
     return response
 
 
