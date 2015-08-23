@@ -4,11 +4,9 @@ import os
 import http_error_codes
 from flask import jsonify, make_response
 from neomodel import db
-import math
 import application_codes
 from errors import WrongTypeError
 from datetime import datetime
-import json
 
 base_url = os.environ.get('BASE_API_URL', 'http://localhost.com:10200')
 CONTENT_TYPE = "application/vnd.api+json; charset=utf-8"
@@ -153,36 +151,88 @@ class SerializableStructuredNode(StructuredNode):
 
         return response
 
-    def relationship_collection_response(self, related_collection_type):
+    def relationship_collection_response(self, related_collection_type, offset=0, limit=20):
         try:
             response = dict()
+            response['included'] = list()
+            total_length = eval('len(self.{related_collection_type})'.format(
+                related_collection_type=related_collection_type)
+            )
             response['links'] = {
-                'self': '{base_url}/{type}/{id}/relationships/{related_collection_type}'.format(
-                                                                                base_url=base_url,
-                                                                                type=self.type,
-                                                                                id=self.id,
-                                                                                related_collection_type=related_collection_type),
+                'self': '{base_url}/{type}/{id}/relationships/{related_collection_type}?page[offset]={offset}&page[limit]={limit}'.format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=offset,
+                    limit=limit
+                ),
                 'related': '{base_url}/{type}/{id}/{related_collection_type}'.format(
                                                             base_url=base_url,
                                                             type=self.type,
                                                             id=self.id,
-                                                            related_collection_type=related_collection_type)
+                                                            related_collection_type=related_collection_type),
+                'first': '{base_url}/{type}/{id}/{related_collection_type}?page[offset]={offset}&page[limit]={limit}'.format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=0,
+                    limit=limit
+                ),
+                'last': "{base_url}/{type}/{id}/{related_collection_type}?page[offset]={offset}&page[limit]={limit}".format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=total_length - (total_length % int(limit)),
+                    limit=limit
+                )
+
             }
 
-            # data
-            related_node_or_nodes = eval('self.{related_collection_type}.all()'.format(
-                related_collection_type=related_collection_type
-            ))
+            if int(offset) - int(limit) > 0:
+                response['links']['prev'] = "{base_url}/{type}/{id}/{related_collection_type}?page[offset]={offset}&page[limit]={limit}".format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=int(offset) - int(limit),
+                    limit=limit
+                )
 
+            if total_length > int(offset) + int(limit):
+                response['links']['next'] = "{base_url}/{type}/{id}/{related_collection_type}?page[offset]={offset}&page[limit]={limit}".format(
+                    base_url=base_url,
+                    type=self.type,
+                    id=self.id,
+                    related_collection_type=related_collection_type,
+                    offset=int(offset) + int(limit),
+                    limit=limit
+                )
+
+            # data
+            relation_type = eval('self.{related_collection_type}.definition'.format(
+                related_collection_type=related_collection_type)).get('relation_type')
+            print relation_type
+
+            results, columns = self.cypher(
+                "START a=node({self}) MATCH a-[:{relation_type}]-(b) RETURN b SKIP {offset} LIMIT {limit}".format(
+                    self=self._id, relation_type=relation_type, offset=offset, limit=limit
+                )
+            )
+            related_node_or_nodes = [self.inflate(row[0]) for row in results]
 
             if not eval("type(self.{related_collection_type})".format(related_collection_type=related_collection_type)) == ZeroOrOne:
                 response['data'] = list()
                 for the_node in related_node_or_nodes:
                     if the_node.active:
                         response['data'].append({'type': the_node.type, 'id': the_node.id})
+                        response['included'].append(the_node.get_resource_object())
             elif related_node_or_nodes:
                 the_node = related_node_or_nodes[0]
                 response['data'] = {'type': the_node.type, 'id': the_node.id}
+                response['included'].append(the_node.get_resource_object())
             else:
                 response['data'] = None
 
@@ -448,12 +498,14 @@ class SerializableStructuredNode(StructuredNode):
         except:
             included = []
         try:
+            offset = request_args.get('page[offset]', 0)
+            limit = request_args.get('page[limit]', 20)
             this_resource = cls.nodes.get(id=id, active=True)
             if not related_resource:
                 if request_args.get('included'):
                     r = application_codes.error_response([application_codes.PARAMETER_NOT_SUPPORTED_VIOLATION])
                 else:
-                    r = this_resource.relationship_collection_response(related_collection_name)
+                    r = this_resource.relationship_collection_response(related_collection_name, offset, limit)
             else:
                 r = this_resource.individual_relationship_response(related_collection_name, related_resource, included)
 
